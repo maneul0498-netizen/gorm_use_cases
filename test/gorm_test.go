@@ -40,9 +40,11 @@ func TestCreate(t *testing.T) {
 func TestRead(t *testing.T) {
 	dbcon := GetDB()
 
+	//Crea wallet con WalletID = 1
 	w, err := db.Create(dbcon)
 	require.NoError(t, err)
 
+	//Lee wallet con WalletID = 1
 	w2, err := db.Read(dbcon)
 	require.NoError(t, err)
 
@@ -52,12 +54,15 @@ func TestRead(t *testing.T) {
 func TestUpdate(t *testing.T) {
 
 	dbcon := GetDB()
+
+	//Crea wallet con WalletID = 1
 	w, err := db.Create(dbcon)
 	require.NoError(t, err)
 
 	assert.Equal(t, w.WalletID, "1")
 	assert.Equal(t, w.Balance, int64(100))
 
+	//Actualiza wallet con WalletID = 1
 	w2, err := db.Update(dbcon)
 	require.NoError(t, err)
 
@@ -66,12 +71,17 @@ func TestUpdate(t *testing.T) {
 
 func TestDelete(t *testing.T) {
 	dbcon := GetDB()
+
+	//Crea wallet con WalletID = 1
 	_, err := db.Create(dbcon)
 	require.NoError(t, err)
 
+	//Borra wallet con WalletID = 1
 	_, err = db.Delete(dbcon)
 	require.NoError(t, err)
 
+	//Lee wallet con WalletID = 1
+	//Debido a que fue borrado el registro se obtiene error -> gorm.ErrRecordNotFound
 	_, err = db.Read(dbcon)
 
 	require.Error(t, err)

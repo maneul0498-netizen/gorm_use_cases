@@ -162,7 +162,7 @@ func UpdateQueryBuilder(db *gorm.DB) error {
 		return err
 	}
 
-	//se borra el registro
+	//Borra wallet para evitar conflictos con otros metodos
 	err = db.Delete(&w).Error
 	if err != nil {
 		return err
@@ -225,6 +225,8 @@ func CreateTransaction(db *gorm.DB) error {
 
 	log.Println(w)
 
+	//Borra registro para evitar conflictos con otras funciones
+	//Borra transacciones asociadas en cascada
 	err = db.Delete(&w).Error
 	if err != nil {
 		return err
@@ -319,9 +321,9 @@ func SqlTransactions(db *gorm.DB) error {
 		return err
 	}
 
-	//err = db.Delete(&WalletModel{WalletID: "1"}).Error
-	//if err != nil {
-	//	return err
-	//}
+	err = db.Delete(&WalletModel{WalletID: "1"}).Error
+	if err != nil {
+		return err
+	}
 	return nil
 }
