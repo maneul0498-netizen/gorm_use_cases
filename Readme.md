@@ -12,7 +12,7 @@ Demostracion simple de uso de gorm con MySQL y SQLite
 
 Para correr el proyecto haga uso de la variable databaseType asignandole el valor "sqlite". Si desea
 correr el proyecto con base de datos mysql haga uso de las variables dbUser, dbPasswd y dbName y asigne
-el valor mysql a la variable databaseType
+el valor "mysql" a la variable databaseType
 ```go
 var (
 	databaseType = "sqlite"
@@ -100,7 +100,7 @@ db.Preload("Transactions").Find(&wallet)
 ```
 ---
 
-#### Uso de transacciones:
+#### Uso de transacciones. Ver funcion SqlTransactions, contiene un ejemplo mas realista
 ```go
 db.Transaction(func(tx *gorm.DB) error {
     if err := tx.Create(&user).Error; err != nil {
